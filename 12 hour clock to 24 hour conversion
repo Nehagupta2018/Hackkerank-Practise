@@ -1,0 +1,68 @@
+/*
+Function Description
+
+Complete the timeConversion function in the editor below. It should return a new string representing the input time in 24 hour format.
+
+timeConversion has the following parameter(s):
+
+s: a string representing time in 12 hour format
+*/
+
+Solution:
+
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    static String timeConversion(String s) 
+    {
+    int size = s.length();
+
+    if(s.charAt(size-2)=='A')
+    {
+        String hh = s.substring(0,2);
+        int h = Integer.parseInt(hh);
+        if(h==12)
+        {
+            String rs1 = "00";
+            String rs2 = rs1+(s.substring(2,8));
+            return rs2;
+        }
+        else
+        {
+            return s.substring(0,size-2);
+        } 
+    } 
+    else
+    {
+        String hh = s.substring(0,2);
+        int h = Integer.parseInt(hh);
+        if(h==12)
+        {
+            return s.substring(0,size-2);
+        }
+        int inPM = h+12;
+        String rs1 = Integer.toString(inPM);
+        String rs2 = rs1 + (s.substring(2,8));
+        return rs2;
+    }
+}
+    private static final Scanner scan = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = scan.nextLine();
+
+        String result = timeConversion(s);
+
+        bw.write(result);
+        bw.newLine();
+
+        bw.close();
+    }
+}
