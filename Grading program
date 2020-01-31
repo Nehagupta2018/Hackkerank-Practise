@@ -1,0 +1,99 @@
+/*
+Problem
+Complete the function gradingStudents in the editor below. It should return an integer array consisting of rounded grades.
+
+gradingStudents has the following parameter(s):
+
+grades: an array of integers representing grades before rounding
+
+Sample Input
+4
+73
+67
+38
+33
+
+Sample Output
+75
+67
+40
+33
+
+*/
+
+Solution:
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    public static List<Integer> gradingStudents(List<Integer> grades) 
+    {
+        int size = grades.size();
+        System.out.println(size);
+
+    List<Integer> rs = new ArrayList<Integer>();
+
+    for(int i=0;i<size;i++)
+    {
+        int a=grades.get(i);
+
+        if(a<38)
+        rs.add(a);
+        else
+        {
+            int x = (grades.get(i))/5;
+            int y= 5*(x+1);
+
+            if(y-grades.get(i)<3)
+            rs.add(y);
+            else
+            rs.add(grades.get(i));
+        }
+    }
+return rs;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int gradesCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> grades = IntStream.range(0, gradesCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine().replaceAll("\\s+$", "");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+            .map(String::trim)
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        List<Integer> result = Result.gradingStudents(grades);
+
+        bufferedWriter.write(
+            result.stream()
+                .map(Object::toString)
+                .collect(joining("\n"))
+            + "\n"
+        );
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
